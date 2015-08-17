@@ -6,6 +6,30 @@
 {% block custom_css %}<link rel="stylesheet" href="{% static "css/login.css" %}">{% endblock %}
 
 {% block body_block %}
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body">
+        <div id="error_message"><p>ye change hoga</p></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+    </div>
+</div>
+
+
+
+
      <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -26,10 +50,10 @@
 							<div class="col-lg-12">
 								<form id="login-form" action="/login" method="post" role="form" style="display: block;">{% csrf_token %}
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" required>
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required>
 									</div>
 									<div class="form-group text-center">
 										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -67,8 +91,8 @@
 									</div>
 									<div class="form-group text-center">
 										 <label class="radio-inline"><input type="radio" name="role" required id="role1" value="Student"><label for="Student">Student</label></label>
-<label class="radio-inline"><input type="radio" name="role" required id="role2" value="student"><label for="TA">TA</label></label>
-<label class="radio-inline"><input type="radio" name="role" required id="role3"><label for="Instructor">Instructor</label></label> 
+<label class="radio-inline"><input type="radio" name="role" required id="role2" value="TA"><label for="TA">TA</label></label>
+<label class="radio-inline"><input type="radio" name="role" required id="role3" value="Instructor"><label for="Instructor">Instructor</label></label> 
 									</div>
 									<div class="form-group">
 										<div class="row">

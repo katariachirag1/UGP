@@ -14,6 +14,28 @@ $(function() {
 		$(this).addClass('active');
 		e.preventDefault();
 	});
+	var getUrlParameter = function getUrlParameter(sParam) {
+    	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
 
+    	for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        	}
+    		}
+	};
+	var error = getUrlParameter('error');
+	var array_error=["Username or password is less than 6 character","Form is incomplete","Passwords do not match","Username exists","Existing email","Server error.Please try later","Username or password is incorrect ","User is inactive"]
+	if(error && error < 8 )
+	{
+		var write=$('#error_message');
+		//write.innerHTML=array_error[error];
+		alert(write);
+		$('#myModal').modal('toggle');	
+	}
 });
 
