@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^recover',login_views.recover),
     url(r'^$', include('login.urls')), 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^users/',include('users.urls')),
+    url(r'^users/',include(users.urls)),
     
 ]

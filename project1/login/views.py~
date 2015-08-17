@@ -24,7 +24,7 @@ def login(request):
 			
             		if user.is_active:
 				print username,password
-               			auth_login(request,user)
+               			login(request,user)
                 		return redirect('/users')
             		else:
 				return redirect('/?error=7')
