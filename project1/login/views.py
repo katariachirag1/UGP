@@ -64,12 +64,15 @@ def register(request):
 		role_type=request.POST.get('role')
 		try:
 			role=Role.objects.get(designation=role_type)
+			print role
 			new_user=User.objects.create_user(username=username,password=password,email=email)
-			new_user_profile=UserProfile.objects.create(user=user,role=role)
+			print new_user,"is"			
+			new_user_profile=UserProfile.objects.create(user=new_user,role=role)
+			print new_user_profile
 		except:
 			return redirect('/?error=5')
 		user = authenticate(username=username, password=password)
-		login(request, user)
+		auth_login(request, user)
 		return HttpResponseRedirect('/users/')
 	else:
 		return redirect('/')
