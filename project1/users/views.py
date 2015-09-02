@@ -8,8 +8,13 @@ from login.models import UserProfile
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 ## index view
+
+@login_required
 def index(request):
     context_dict = {}
     return render(request, 'user/index.html', context_dict)

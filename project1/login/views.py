@@ -8,14 +8,21 @@ from login.models import Role
 from login.models import UserProfile
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.http import HttpResponseRedirect, HttpResponse
 # Create your views here.
+
+
 ## index view
 def index(request):
-    context_dict = {}
-    return render(request, 'login/index.html', context_dict)
+	if request.user.is_authenticated():
+		return redirect('/home')
+	context_dict = {}
+	return render(request, 'login/index.html', context_dict)
 ### for login
 def login(request):
+	if request.user.is_authenticated():
+		return redirect('/home')
 	if request.method == 'POST':
 		username = request.POST.get('username')
         	password = request.POST.get('password')
@@ -25,7 +32,7 @@ def login(request):
             		if user.is_active:
 				print username,password
                			auth_login(request,user)
-                		return redirect('/users')
+                		return redirect('/home')
             		else:
 				return redirect('/?error=7')
         	else:
@@ -37,6 +44,8 @@ def login(request):
 
 ### for registration		
 def register(request):
+	if request.user.is_authenticated():
+		return redirect('/home')
 	if request.method == 'POST':
 		username = request.POST.get('username')
         	password = request.POST.get('password')
@@ -73,7 +82,7 @@ def register(request):
 			return redirect('/?error=5')
 		user = authenticate(username=username, password=password)
 		auth_login(request, user)
-		return HttpResponseRedirect('/users/')
+		return HttpResponseRedirect('/home/')
 	else:
 		return redirect('/')
 
@@ -82,5 +91,9 @@ def register(request):
 def recover(request):
 	return HttpResponse("recover")
 
+###### for logout
+def logout(request):
+	auth_logout(request)
+	return redirect('/')
 
 

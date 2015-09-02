@@ -1,0 +1,45 @@
+{% extends 'course/index.html' %}
+{% load staticfiles %}
+{% block course_block %}
+<div class="panel panel-default">
+      <div class="panel-heading"><h2 class="text-center">Announcements<h2></div>
+      <div class="panel-body">
+      	<div class="announcent_heading">
+      	<h3>Announcement 1</h3>
+      	<hr>
+      	</div>
+      	<div class="body">
+      	<p> THis is ihiashdha hsauas dajskhgdkas snadgasds adkasgdkhsa d dhsdjks dn sdkhasgdhksa dsd </p>
+      	</div>
+      </div>
+</div>
+{% if Instructor %}
+	<script src ="{% static "js/tinymce/tinymce.min.js" %}"></script>
+	<script type="text/javascript">
+	tinymce.init({
+    selector: "textarea",
+    theme: "modern",
+    external_filemanager_path:"{% static "plugins/responsivefilemanager/" %}",
+    external_plugins: { "filemanager" : "{% static "plugins/responsivefilemanager/plugin.min.js" %}"},
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",        
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "template paste textcolor colorpicker textpattern imagetools"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    toolbar2: " print preview media | forecolor backcolor emoticons",
+    image_advtab: true,
+    templates: [
+        {title: 'Test template 1', content: 'Test 1'},
+        {title: 'Test template 2', content: 'Test 2'}
+    ]
+	});
+	</script>
+
+<form method="post" action="somepage">
+    <textarea name="content" style="width:100%"></textarea>
+    <input type="submit" Value="Submit">
+</form>
+{% endif %}
+{% endblock %}

@@ -25,6 +25,7 @@ SECRET_KEY = 'u(acn_rqs0c$$(klp@q4jq_m07g0p^6#v5vaj=oc3k2l7u3afo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGIN_URL = '/'
 ALLOWED_HOSTS = []
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
@@ -37,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'login',
-    'course', 	
+    'course',
+    'users', 	
     'django.contrib.staticfiles',
 )
 

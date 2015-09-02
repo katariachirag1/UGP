@@ -17,7 +17,7 @@
         <h4 class="modal-title">Error</h4>
       </div>
       <div class="modal-body">
-        <div ><p id="error_message"><script>document.getElementById("error_message").value;</script></p></div>
+        <div class="results"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -111,3 +111,4 @@
 	</div>
 {% endblock %}
 {% block custom_js %}<script src ="{% static "js/login.js" %}"></script>{% endblock %}
+
