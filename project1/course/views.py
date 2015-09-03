@@ -20,7 +20,7 @@ def index(request,course_name):
 			context_dict['user_login']=True
 			user_profile=UserProfile.objects.get(user=request.user)
 			role=user_profile.role.role
-			if role == 3:
+			if role == 1:
 				print "Instructor "
 				context_dict['Instructor']=True
 		else:

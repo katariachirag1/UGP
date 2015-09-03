@@ -63,9 +63,24 @@
 
 
 <!--navbar ends here -->
+<div class="container">
+<div class="row">
+<div class="col-md-2">
+
+<!-- left side bar -->
+
+</div>
+<div class="col-md-8">
+<!-- main -->
+{% block main_view %}{% endblock %}
+</div>
+<div class="col-md-2">
+<!-- right side bar -->
+</div>
 
 
-
+</div>
+</div>
 {% endblock %}
 {% block custom_js %}<script src ="{% static "js/login.js" %}"></script>{% endblock %}
 

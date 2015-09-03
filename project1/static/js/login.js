@@ -29,8 +29,8 @@ $(function() {
     		}
 	};
 	var error = getUrlParameter('error');
-	var array_error=["Username or password is less than 6 character","Form is incomplete","Passwords do not match","Username exists","Existing email","Server error.Please try later","Username or password is incorrect ","User is inactive"]
-	if(error && error < 8 )
+	var array_error=["Username or password is less than 6 character","Form is incomplete","Passwords do not match","Username exists","Existing email","Server error.Please try later","Username or password is incorrect ","User is inactive","'Roll no' or 'id' is already in use"]
+	if(error && error < 9 )
 	{
 		document.querySelector('.results').innerHTML = array_error[error];
 		var write=$('#error_message');

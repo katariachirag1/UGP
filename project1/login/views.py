@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from login.models import Role
 from login.models import UserProfile
+from login.models import *
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -71,13 +72,49 @@ def register(request):
 		if exist:
 			return redirect('/?error=4')
 		role_type=request.POST.get('role')
+		roll_id=request.POST.get('roll_id')
+		print roll_id
 		try:
 			role=Role.objects.get(designation=role_type)
-			print role
+			role_int=role.role
+			if role_int==1:
+				exist=True
+				try :
+					user_check=Instructor.objects.get(i_id=roll_id)
+				except:
+					exist=False
+				if exist:
+					return redirect('/?error=8')
+			if role_int==2:
+				exist=True
+				try :
+					user_check=TA.objects.get(roll=roll_id)
+				except:
+					exist=False
+				if exist:
+					return redirect('/?error=8')
+			if role_int==3:
+				exist=True
+				try :
+					user_check=Student.objects.get(roll=roll_id)
+				except:
+					exist=False
+				if exist:
+					return redirect('/?error=8')
 			new_user=User.objects.create_user(username=username,password=password,email=email)
 			print new_user,"is"			
 			new_user_profile=UserProfile.objects.create(user=new_user,role=role)
 			print new_user_profile
+			dept=Departments.objects.get(dep_id=0)
+			print dept
+			if role_int==1:
+				print dept
+				Instructor.objects.create(user=new_user_profile,i_id=roll_id,dept=dept)
+				print "yahan"
+			if role_int==2:
+				TA.objects.create(user=new_user_profile,roll=roll_id,dept=dept)
+			if role_int==3:
+				Student.objects.create(user=new_user_profile,roll=roll_id,dept=dept)
 		except:
 			return redirect('/?error=5')
 		user = authenticate(username=username, password=password)
