@@ -1,19 +1,60 @@
 {% extends 'course/index.html' %}
 {% load staticfiles %}
 {% block course_block %}
+
+<script src ="{% static "js/dialog.js" %}"></script>
 <div class="panel panel-default">
       <div class="panel-heading"><h2 class="text-center">Announcements<h2></div>
       <div class="panel-body">
-      	<div class="announcent_heading">
-      	<h3>Announcement 1</h3>
+		{% for announce in announcements %}
+      	<div class="announcent_heading text-center">
+
+      	<h3>Announcement</h3>
       	<hr>
       	</div>
       	<div class="body">
-      	<p> THis is ihiashdha hsauas dajskhgdkas snadgasds adkasgdkhsa d dhsdjks dn sdkhasgdhksa dsd </p>
+      	<p> {% autoescape off %}{{ announce }}{% endautoescape %}</p>
       	</div>
+      	{% endfor %}
       </div>
 </div>
+{% if Student %}
+<script type="text/javascript">
+</script>
+<div id="dialogoverlay"></div>
+<div id="dialogbox">
+  <div>
+    <div id="dialogboxhead"></div>
+    <div id="dialogboxbody"></div>
+    <div id="dialogboxfoot"></div>
+  </div>
+</div>
+<button class="btn btn-primary" onclick="Prompt.render('Enter Token Id:','changeText')">Register</button>
+<br/>
+<br/>
+{% endif %}
+
+{% if Ta %}
+<script type="text/javascript">
+</script>
+<div id="dialogoverlay"></div>
+<div id="dialogbox">
+  <div>
+    <div id="dialogboxhead"></div>
+    <div id="dialogboxbody"></div>
+    <div id="dialogboxfoot"></div>
+  </div>
+</div>
+<button class="btn btn-primary" onclick="Prompt.render('Enter Token Id:','changeText')">Register</button>
+<br/>
+<br/>
+{% endif %}
+
+
+
 {% if Instructor %}
+	<p>Token for student : <pre>{{ tokens.token_student }}</pre></p>
+	<p>Token for TA : <pre>{{ tokens.token_ta }}</pre></p>
 	<script src ="{% static "js/tinymce/tinymce.min.js" %}"></script>
 	<script type="text/javascript">
 	tinymce.init({
@@ -37,8 +78,8 @@
 	});
 	</script>
 
-<form method="post" action="somepage">
-    <textarea name="content" style="width:100%"></textarea>
+<form method="post" action="{{ link }}">{% csrf_token %}
+    <textarea name="content" id="content" style="width:100%"></textarea>
     <input type="submit" Value="Submit">
 </form>
 {% endif %}

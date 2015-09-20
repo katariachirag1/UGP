@@ -3,7 +3,8 @@
 {% load staticfiles %}
 
 {% block title %}Login{% endblock %}
-{% block custom_css %}<link rel="stylesheet" href="{% static "css/login.css" %}">{% endblock %}
+{% block custom_css %}<link rel="stylesheet" href="{% static "css/login.css" %}">
+<link rel="stylesheet" href="{% static "css/dialog.css" %}">{% endblock %}
 
 {% block body_block %}
 
@@ -80,9 +81,55 @@
 <!--body starts here -->
 <div class="container">
 <div class="row">
-<div class="col-md-2">
+<div class="col-md-3">
+<div>
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Info</li>
+              <!-- <li class="active"><a href="#">Link</a></li> -->
+              <li><a href="#">Quick Questions</a></li>
+              <li><a href="/course/{{ course_name }}">Announcements</a></li>
+              <li><a href="#">Course Book</a></li>
+
+              <li class="nav-header">Lectures</li>
+              <li><a href="/course/{{ course_name }}/upload/new/">Lecture Videos</a></li>
+              <li><a href="/course/{{ course_name }}/upload/new/">Lecture Slides</a></li>
+              
+              <li class="nav-header">Exercises</li>
+              <li><a href="/course/exams/">Exams</a></li>
+              <li><a href="#">Assignments</a></li>
+
+              <li class="nav-header">About the Course</li>
+              <li><a href="#">Syllabus</a></li>
+              <li><a href="#">Grading Scheme</a></li>
+
+              <li class="nav-header">Community</li>
+              <li><a href="#">Discussion Forums</a></li>
+              <li><a href="#">Grading Scheme</a></li>
+
+              <li class="nav-header">Course Administration</li>
+              <li><a href="#">Grades</a></li>
+              
+            </ul>
+          </div><!--/.well -->
+
+          
+        
+
+        </div><!--/span-->
+
+
+
 </div>
+
+
+
+
+
+
 <div class="col-md-8">
+
+
 {% block course_block %}{% endblock %}
 </div>
 <div class="col-md-2">

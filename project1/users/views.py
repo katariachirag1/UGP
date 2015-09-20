@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from login.models import Role
 from login.models import UserProfile
+from course.models import *
 from login.models import *
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -20,8 +21,13 @@ def index(request):
     context_dict = {}
     role=UserProfile.objects.get(user=request.user).role.role
     context_dict['role']=role
+
     print role
     if role==1:
+    	user_profile=UserProfile.objects.get(user=request.user)
+    	instructor=Instructor.objects.get(user=user_profile)
+    	courses=Courses.objects.filter(instructor=instructor)
+    	context_dict['courses']=courses
     	return render(request, 'user/Instructor.html', context_dict)
     if role==2:
     	return render(request, 'user/TA.html', context_dict)

@@ -26,7 +26,10 @@ def login(request):
 		return redirect('/home')
 	if request.method == 'POST':
 		username = request.POST.get('username')
+		print username
+
         	password = request.POST.get('password')
+        	print password
 		user = authenticate(username=username, password=password)
 		if user:
 			
