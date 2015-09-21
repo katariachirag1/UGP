@@ -194,3 +194,59 @@ def Announce_submit(request,course_name):
 	Announcements.objects.create(announcement_id=idx,instructor=instructor,course=course,announcement=about,date=datetime.datetime.now().date())
 	link="/course/"+course_name
 	return redirect(link)
+
+
+
+@login_required
+def forum(request,course_name):
+	if request.method == 'GET':
+		context_dict={}
+		context_dict['user_login']=True
+		context_dict['course_name']=course_name
+		course=Courses.objects.get(course_id=course_name)
+		comments=Comments.objects.filter(course=course)
+		print comments
+		length=len(comments)
+		context_dict['comments']=comments
+		return render(request, 'course/forum.html', context_dict)
+	elif request.method == 'POST':
+		comment = request.POST.get('comment')
+		user_profile=UserProfile.objects.get(user=request.user)
+		course=Courses.objects.get(course_id=course_name)
+		try :
+			l=Comments.objects.all()
+			l=len(l)+1
+			s=Comments.objects.create(user=user_profile,comment=comment,course=course,comment_id=l,date=datetime.datetime.now().date())
+		except:
+			return HttpResponse("Comment can't be posted now")
+		return HttpResponseRedirect("/course/"+course_name+"/forum")
+
+
+
+@login_required
+def discussions(request,course_name):
+	if request.method == 'GET':
+		comment_id=course_name
+		context_dict={}
+		context_dict['user_login']=True
+		context_dict['comment_id']=comment_id
+		comments=Comments.objects.filter(comment_id=comment_id)
+		course=comments[0].course
+		course_name=course.course_name.upper()
+		context_dict['course_name']=course.course_id
+		context_dict['comments']=comments
+		context_dict['replies']=Reply.objects.filter(comment=comments[0])
+		return render(request, 'course/forum2.html',context_dict)
+	if request.method == 'POST':
+		reply = request.POST.get('comment')
+		user_profile=UserProfile.objects.get(user=request.user)
+		comment = Comments.objects.get(comment_id=course_name)
+		try :
+			l=Reply.objects.all()
+			l=len(l)+1
+			s=Reply.objects.create(comment=comment,user=user_profile,reply=reply,reply_id=l,date=datetime.datetime.now().date())
+			comment.no_of_replies=comment.no_of_replies+1
+			comment.save()
+		except:
+			return HttpResponse("Reply can't be posted now")
+		return HttpResponseRedirect("/course/discussions/"+course_name)
